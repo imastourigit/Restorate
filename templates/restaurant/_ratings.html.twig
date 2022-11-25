@@ -1,3 +1,4 @@
+{{ include('restaurant/_empty_message.html.twig', { 'list_items': restaurant.getRatings ,'message_empty': ' there are no comments yet on this restaurant'}) }}
 {% for review in  restaurant.getRatings %}           
         <div class="accordion" id="accordionExample">
 

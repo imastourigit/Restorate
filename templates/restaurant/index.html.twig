@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Our Restaurants{% endblock %}
-
+{% block content_title %}Our Restaurants{% endblock %}
 {% block body %}
- 
- 
 
+{{ include('restaurant/_empty_message.html.twig', { 'list_items': restaurants ,'message_empty': 'Oops .. there are no restaurants yet here'}) }}
  {% for restaurant in restaurants %}
  <div class="col-lg-4">
 
