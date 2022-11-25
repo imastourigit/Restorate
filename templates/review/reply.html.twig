@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %} Review Reply{% endblock %}
+{% block body %}
+<div class="col-lg-6"> 
+        <div class="well">
+            <strong>{{ review.user.firstname }} {{ review.user.lastname }} - {{ review.note }} </strong><br>
+            <p>{{ review.message }}  </p>
+        </div>
+
+    {{ form_start(form) }}       
+            {{ form_row(form.message) }}
+            <button class="btn btn-info">{{ button_label|default('Reply') }}</button>        
+    {{ form_end(form) }}
+
+</div>    
+{% endblock %} 
+ 
+
+
+       
+
+ 
+

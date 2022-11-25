@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our Restaurants{% endblock %}
+
+{% block body %}
+ 
+ 
+
+ {% for restaurant in restaurants %}
+ <div class="col-lg-4">
+
+        <div class="card mb-3">
+            <h3 class="card-header">
+            <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}"> 
+            {{ restaurant.name }}
+            </a>
+            </h3>
+        <div class="card-body">
+            <h5 class="card-title">{{ restaurant.name }} </h5>
+            <h6 class="card-subtitle text-muted">{{ restaurant.city.name }} </h6>
+        </div>
+            <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}"> 
+{% if  restaurant.media|length > 0 %}
+   <img style="width: 100%;height:15vw;object-fit: contain;" src="{{ asset('/upload/media/'~(restaurant.media |last )) }}"  />
+          
+         
+{% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+            <rect width="100%" height="15vw" fill="#868e96"></rect>
+            <text x="50%" y="50%" fill="#dee2e6" dy=".3em"> {{ restaurant.name }}</text>
+        </svg>
+{% endif %}
+        </a>
+        <div class="card-body">
+            <p class="card-text">A description of this beautiful restaurant.</p>
+        </div>
+ 
+        <div class="card-body">
+            
+      <a href="{{ path('app_city_show', {'id': restaurant.city.id}) }}">{{ restaurant.city.name }} </a>
+        </div>
+        <div class="card-footer text-muted">
+        <h4>{{ restaurant.getAverageRating }}</h4>
+          
+        </div>
+        </div>
+ 
+</div>
+{% endfor %}
+
+
+{% endblock %}

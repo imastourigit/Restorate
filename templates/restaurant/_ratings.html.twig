@@ -1,0 +1,47 @@
+{% for review in  restaurant.getRatings %}           
+        <div class="accordion" id="accordionExample">
+
+            <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ review.id }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#colapse{{ review.id }}" aria-expanded="false" aria-controls="colapse{{ review.id }}">
+                <strong>{{ review.user.firstname }} {{ review.user.lastname }} - {{ review.note }}  </strong><br>
+                </button>
+            </h2>
+            <div id="colapse{{ review.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ review.id }}" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>{{ review.message }}  </p>
+               
+            {% for response in  review.reviews %} 
+                    <hr>
+                    <div class="card-footer text-muted">
+
+                    {% if (restaurant.user.id == response.user.id) %}
+                    <strong> {{ restaurant.name  }} </strong><br>
+
+                    {% else  %}
+                    <strong> {{ response.user.username }} </strong><br>
+                    {% endif  %}
+                    
+                    <p>{{ response.message }}</p>
+                    <br>
+                    {% if  response.user.id == app.user.id  %}
+                    {{ include('review/_review_delete.html.twig', {'review_id':response.id }) }}
+                    {% endif %}
+                    </div>
+            {% endfor %}  
+
+            {% if  app.user %}            
+                    {% if  review.user.id == app.user.id  %}
+                     
+                        {{ include('review/_review_delete.html.twig', {'review_id':review.id }) }}
+                    {% endif %}
+                    {% if  restaurant.user.id == app.user.id  %}
+                    <a href="{{ path('app_review_reply',{id:review.id})}}" class="btn btn-info"> reply review</a>
+                    {% endif %}
+             {% endif %}
+
+                        </div>
+                        </div>
+            </div>
+  
+{% endfor %} 

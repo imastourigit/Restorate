@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Update your Restaurant{% endblock %}
+{% block body %}
+<div class="col-lg-6"> 
+            {{ form_start(form) }}
+                
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.city) }}
+        
+                    <ul class="media"
+                        data-index="{{ form.media|length > 0 ? form.media|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ form_widget(form.media.vars.prototype)|e('html_attr') }}">
+                    {{ form_row(form.media) }}
+                    </ul>       
+                    <button type="button" class="btn btn-primary add_item_link" data-collection-holder-class="media"> + add image </button> <br><br> 
+                    <button class="btn btn-success"><strong>{{ button_label|default('Update') }}</strong></button><hr>
+            {{ form_end(form) }}
+</div>  
+ 
+ <div class="row">
+ {% for media in restaurant.media %}
+ <div class="col-lg-3" id="div_{{ media.id}}">
+        <div class="card mb-3">
+                <img style="width: 100%;height:20vw;object-fit: contain;" src="{{ asset('/upload/media/'~(media.filename )) }}"  />
+                <div class="card-footer" align="center">
+                <a href="{{ path('app_media_delete',{id: media.id})}}" class="btn btn-danger"  data-token="{{ csrf_token('delete'~ media.id)}}" data-delete data-div="div_{{ media.id}}" >Delete </a>
+                </div> 
+         </div>
+ </div>  
+{% endfor %}
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('/scripts/ajax_delete_media.js') }}"></script>
+<script src="{{ asset('/scripts/add_remove_media_inputs.js') }}"></script> 
+{% endblock %}
